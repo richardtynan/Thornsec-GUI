@@ -35,7 +35,6 @@ public class ProfilesVC extends ATabbedVC implements ActionListener, Observer {
 					JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED));
 			pvc.setData(serverData.lastElement());
 		} else if (serverData.size() < this.tabs.getTabCount()) {
-			System.out.println("delete");
 			for (int i = 0; i < serverData.size(); i++) {
 				if (serverData.elementAt(i).getLabel() != this.tabs.getTitleAt(i)) {
 					this.tabs.removeTabAt(i);

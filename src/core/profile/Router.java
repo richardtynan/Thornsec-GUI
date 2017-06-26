@@ -17,7 +17,7 @@ public class Router implements IProfile {
 	}
 
 	public void init(String server, NetworkModel model) {
-
+		System.out.println("Initialising router on " + server);
 	}
 
 	public Vector<IUnit> getUnits(String server, NetworkModel model) {

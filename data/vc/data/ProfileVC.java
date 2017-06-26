@@ -31,7 +31,7 @@ public class ProfileVC extends JPanel implements FocusListener, Observer {
 		GridBagConstraints g = new GridBagConstraints();
 		
 		try {
-			IProfile prof = (IProfile) Class.forName("profile." + profile).newInstance();
+			IProfile prof = (IProfile) Class.forName("core.profile." + profile).newInstance();
 			
 			String[] props = prof.getStringProperties();
 			for (int i = 0; i < props.length; i++) {

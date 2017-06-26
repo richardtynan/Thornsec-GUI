@@ -71,16 +71,10 @@ public class ServerModel extends Observable implements Observer {
 
 	public void auditBlock(String server, OutputStream out, InputStream in, boolean quiet) {
 		System.out.println("auditBlock");
-		for (int i = 0; i < profiles.size(); i++) {
-			System.out.println(profiles.elementAt(i).getLabel());
-		}
 	}
 
 	public void auditNonBlock(String server, OutputStream out, InputStream in, boolean quiet) {
 		System.out.println("auditNonBlock");
-		for (int i = 0; i < profiles.size(); i++) {
-			System.out.println(profiles.elementAt(i).getLabel());
-		}
 	}
 
 	public void dryrunBlock(String server, OutputStream out, InputStream in) {
@@ -105,6 +99,10 @@ public class ServerModel extends Observable implements Observer {
 
 	public void isoNonBlock(String server, OutputStream out, InputStream in) {
 		System.out.println("isoNonBlock");
+	}
+	
+	public Vector<IProfile> getProfiles() {
+		return this.profiles;
 	}
 
 }
