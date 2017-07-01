@@ -5,29 +5,29 @@ import java.util.Vector;
 import core.iface.IProfile;
 import core.iface.IUnit;
 import core.model.NetworkModel;
+import core.unit.SimpleUnit;
 
 public class Base implements IProfile {
 
 	public String getLabel() {
 		return "Base";
 	}
-	
+
 	public String[] getStringProperties() {
 		return new String[] { "hostname", "update" };
 	}
-	
+
 	public void init(String server, NetworkModel model) {
 
 	}
 
 	public Vector<IUnit> getUnits(String server, NetworkModel model) {
 		Vector<IUnit> units = new Vector<IUnit>();
+		units.addElement(new SimpleUnit("host", "sudo", "echo \"ERROR: Configuring with hostname mismatch\";",
+				"hostname;", model.getServer(server).getProperty("hostname"), "pass"));
 		// units.addElement(new SimpleUnit("sudo", "proceed", "echo \"ERROR:
 		// sudo\";",
 		// "sudo --stdin hostname &>/dev/null;", "", "pass"));
-		// units.addElement(new SimpleUnit("host", "sudo", "echo \"ERROR:
-		// Configuring with hostname mismatch\";",
-		// "sudo hostname;", networkData.getHostname(this.getLabel()), "pass"));
 		// String configcmd = "";
 		// if (networkData.getUpdate(this.getLabel()).equals("true")) {
 		// configcmd = "sudo apt-get --assume-yes upgrade;";

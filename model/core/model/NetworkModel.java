@@ -26,14 +26,14 @@ public class NetworkModel extends Observable implements Observer {
 	
 	public void init() {
 		for (int i = 0; i < servers.size(); i++) {
-			servers.elementAt(i).init(this);
+			servers.elementAt(i).init();
 		}
 	}
 
 	public void update(Observable o, Object arg) {
 		Vector<ServerData> netData = data.getServers();
 		if (netData.size() > servers.size()) {
-			ServerModel net = new ServerModel(netData.lastElement().getLabel());
+			ServerModel net = new ServerModel(netData.lastElement().getLabel(), this);
 			this.servers.addElement(net);
 			net.setData(netData.lastElement());
 			net.addObserver(this);
@@ -52,8 +52,6 @@ public class NetworkModel extends Observable implements Observer {
 				this.setChanged();
 				this.notifyObservers();
 			}
-		} else {
-			this.init();
 		}
 	}
 
@@ -68,6 +66,15 @@ public class NetworkModel extends Observable implements Observer {
 
 	public Vector<ServerModel> getServers() {
 		return servers;
+	}
+	
+	public ServerModel getServer(String label) {
+		for (int i = 0; i < this.servers.size(); i++) {
+			if (this.servers.elementAt(i).getLabel().equals(label)) {
+				return servers.elementAt(i);
+			}
+		}
+		return null;
 	}
 
 }

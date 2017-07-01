@@ -2,17 +2,20 @@ package vc.model;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import core.model.NetworkModel;
 import core.model.ServerModel;
 
-public class NetworkModelVC extends JPanel implements Observer {
+public class NetworkModelVC extends JPanel implements Observer, ActionListener {
 
 	private static final long serialVersionUID = 912200431295223243L;
 
@@ -23,8 +26,19 @@ public class NetworkModelVC extends JPanel implements Observer {
 	public NetworkModelVC() {
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints g = new GridBagConstraints();
+		
 		g.gridx = 0;
 		g.gridy = 0;
+		g.weightx = 1;
+		g.weighty = 0;
+		g.fill = GridBagConstraints.HORIZONTAL;
+
+		JButton init = new JButton("initialise");
+		init.addActionListener(this);
+		this.add(init, g);
+		
+		g.gridx = 0;
+		g.gridy = 1;
 		g.weightx = 1;
 		g.weighty = 1;
 		g.fill = GridBagConstraints.BOTH;
@@ -54,6 +68,10 @@ public class NetworkModelVC extends JPanel implements Observer {
 				this.tabs.removeTabAt(this.tabs.getComponentCount() - 1);
 			}
 		}
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		this.model.init();
 	}
 
 }

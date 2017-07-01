@@ -34,6 +34,7 @@ public class ThornsecMain5 {
 		frame.setVisible(true);
 
 		data.load();
+		model.init();
 	}
 
 }

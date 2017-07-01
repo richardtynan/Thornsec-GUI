@@ -12,10 +12,21 @@ import core.iface.IProfile;
 public class ProfileData extends AData {
 
 	private Properties props;
+	private IProfile prof;
 
 	public ProfileData(String label) {
 		super(label);
-		this.props = new Properties();
+		try {
+			this.prof = (IProfile) Class.forName("core.profile." + this.getLabel()).newInstance();
+			this.props = new Properties();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public IProfile getProfile() {
+		return this.prof;
 	}
 
 	public Properties getProperties() {
@@ -29,14 +40,9 @@ public class ProfileData extends AData {
 	}
 
 	public void read(JsonObject data) {
-		try {
-			IProfile prof = (IProfile) Class.forName("core.profile." + this.getLabel()).newInstance();
-			String[] profProps = prof.getStringProperties();
-			for (int i = 0; i < profProps.length; i++) {
-				this.setProperty(profProps[i], data.getString(profProps[i], ""));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		String[] profProps = prof.getStringProperties();
+		for (int i = 0; i < profProps.length; i++) {
+			this.setProperty(profProps[i], data.getString(profProps[i], ""));
 		}
 	}
 

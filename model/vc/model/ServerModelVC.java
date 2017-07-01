@@ -1,6 +1,5 @@
 package vc.model;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
+import javax.swing.border.EmptyBorder;
 
 import core.iface.IProfile;
 import core.model.ServerModel;
@@ -27,7 +26,7 @@ public class ServerModelVC extends JPanel implements Observer, ActionListener {
 	private ServerModel model;
 
 	private String name;
-	
+
 	private JPanel profiles;
 
 	private JButton audit;
@@ -51,7 +50,7 @@ public class ServerModelVC extends JPanel implements Observer, ActionListener {
 		profiles.setLayout(new BoxLayout(profiles, BoxLayout.X_AXIS));
 		this.add(new JScrollPane(profiles, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED), g);
-		
+
 		g.gridx = 0;
 		g.gridy = 1;
 		g.weightx = 1;
@@ -108,13 +107,13 @@ public class ServerModelVC extends JPanel implements Observer, ActionListener {
 		this.model = model;
 		model.addObserver(this);
 	}
-	
+
 	public void update(Observable o, Object arg) {
 		Vector<IProfile> netData = model.getProfiles();
 		if (netData.size() > this.profiles.getComponentCount()) {
 			JLabel newprof = new JLabel(netData.lastElement().getLabel());
+			newprof.setBorder(new EmptyBorder(2, 2, 2, 2));
 			newprof.setName(netData.lastElement().getLabel());
-			newprof.setBorder(new LineBorder(Color.black));
 			this.profiles.add(newprof);
 		} else if (netData.size() < this.profiles.getComponentCount()) {
 			for (int i = 0; i < netData.size(); i++) {
@@ -134,13 +133,13 @@ public class ServerModelVC extends JPanel implements Observer, ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.audit)) {
-			this.model.auditNonBlock(this.getName(), new TextAreaOutputStream(this.output), System.in, false);
+			this.model.auditNonBlock(new TextAreaOutputStream(this.output), System.in, false);
 		} else if (e.getSource().equals(this.config)) {
-			this.model.configNonBlock(this.getName(), new TextAreaOutputStream(this.output), System.in);
+			this.model.configNonBlock(new TextAreaOutputStream(this.output), System.in, false);
 		} else if (e.getSource().equals(this.dryRun)) {
-			this.model.dryrunNonBlock(this.getName(), new TextAreaOutputStream(this.output), System.in);
+			this.model.dryrunNonBlock(new TextAreaOutputStream(this.output), System.in, false);
 		} else if (e.getSource().equals(this.iso)) {
-			this.model.isoNonBlock(this.getName(), new TextAreaOutputStream(this.output), System.in);
+			this.model.isoNonBlock(new TextAreaOutputStream(this.output), System.in, false);
 		}
 	}
 

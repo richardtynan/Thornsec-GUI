@@ -20,6 +20,12 @@ public class ThornsecModel extends Observable implements Observer {
 	public Vector<NetworkModel> getNetworks() {
 		return networks;
 	}
+	
+	public void init() {
+		for (int i = 0; i < networks.size(); i++) {
+			networks.elementAt(i).init();
+		}
+	}
 
 	public void setData(ThornsecData data) {
 		this.data = data;
